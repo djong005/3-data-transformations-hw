@@ -16,7 +16,9 @@ ds <- read_csv("data_raw/rolling_stone_500.csv")
 #Use a function to check that your conversion succeeded
 
 #ANSWER
-
+glimpse(ds)
+ds$Year <- as.numeric(ds$Year)
+is.numeric(ds$Year)
 
 ### Question 2 ---------- 
 
@@ -24,7 +26,8 @@ ds <- read_csv("data_raw/rolling_stone_500.csv")
 # change ds so that all of the variables are lowercase
 
 #ANSWER
-
+library(janitor)
+ds <- ds |> clean_names("snake")
 
 ### Question 3 ----------
 
@@ -33,7 +36,11 @@ ds <- read_csv("data_raw/rolling_stone_500.csv")
 # Hint: read the documentation for ?floor and make sure year is numeric (from Question 1)
 
 #ANSWER
+?floor
+ds <- ds |> mutate(decade = floor(year/10))
+                
 
+                   
 
 ### Question 4 ----------
 
