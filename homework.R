@@ -37,26 +37,25 @@ ds <- ds |> clean_names("snake")
 
 #ANSWER
 ?floor
-ds <- ds |> mutate(decade = floor(year/10))
-                
-
-                   
+ds <- ds |> mutate(decade = floor(year / 10)) |> 
+  mutate(decade = floor(decade *10))
 
 ### Question 4 ----------
 
 # Sort the dataset by rank so that 1 is at the top
 
 #ANSWER
+ds <- ds |> arrange(rank)
 
-
-### Question 5 ----------
+### Question 5 -----rank### Question 5 ----------
 
 # Use filter and select to create a new tibble called 'top10'
 # That just has the artists and songs for the top 10 songs
 
 #ANSWER
 
-
+top10 <- ds |> filter(rank < 11) |> 
+  select(c("rank", "artist", "song"))
 
 ### Question 6 ----------
 
@@ -66,6 +65,10 @@ ds <- ds |> mutate(decade = floor(year/10))
 
 #ANSWER
 
+?drop_na # using na.rm = T instead because that was shown on the slides
+ds_sum <- ds |> summarize(earliest_year = min(year, na.rm = T),
+                          most_recent_year = max(year, na.rm = T),
+                          average_year = mean(year, na.rm = T))
 
 ### Question 7 ----------
 
@@ -76,7 +79,8 @@ ds <- ds |> mutate(decade = floor(year/10))
 # (this might take some searching to find functions that will help)
 
 #ANSWER
-
+ds_filtered <- ds |> filter(year == 1879 | year == 2020 | year == 1980) |> 
+  arrange(year)
 
 ### Question 8 ---------- 
 
@@ -87,7 +91,15 @@ ds <- ds |> mutate(decade = floor(year/10))
 # find the correct oldest, averag-ist, and most recent songs
 
 #ANSWER
+?ifelse
+ds <- ds |> mutate(year = ifelse(year == "1879", 1979, year))
 
+ds <- ds |> mutate(decade = floor(year / 10)) |> 
+  mutate(decade = floor(decade *10))
+
+new_ds_sum <- ds |> summarize(earliest_year = min(year, na.rm = T),
+                              most_recent_year = max(year, na.rm = T),
+                              average_year = mean(year, na.rm = T))
 
 ### Question 9 ---------
 
