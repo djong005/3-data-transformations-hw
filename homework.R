@@ -1,7 +1,7 @@
 # PSYC 259 Homework 3 - Data Transformation
 # For full credit, provide answers for at least 7/11
 
-# List names of students collaborating with: Yes
+# List names of students collaborating with: Sarah and Amberley
 
 ### SETUP: RUN THIS BEFORE STARTING ----------
 
