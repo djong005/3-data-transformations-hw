@@ -96,6 +96,7 @@ ds <- ds |> mutate(year = ifelse(year == "1879", 1979, year))
 
 ds <- ds |> mutate(decade = floor(year / 10)) |> 
   mutate(decade = floor(decade *10))
+# tried to combine by piping these together but it flopped
 
 new_ds_sum <- ds |> summarize(earliest_year = min(year, na.rm = T),
                               most_recent_year = max(year, na.rm = T),
@@ -110,7 +111,9 @@ new_ds_sum <- ds |> summarize(earliest_year = min(year, na.rm = T),
 # Use the pipe %>% to string the commands together
 
 #ANSWER
-
+ds |> drop_na() |> 
+  group_by(decade) |> 
+  summarize(average_rank = mean(rank))
 
 ### Question 10 --------
 
@@ -121,6 +124,12 @@ new_ds_sum <- ds |> summarize(earliest_year = min(year, na.rm = T),
 # Check against your answers from Question 9 to make sure it matches
 
 #ANSWER
+?count
+?slice_max
+
+ds |> drop_na() |> 
+  count(decade) |> 
+  slice_max(n)
 
 
 ### Question 11 ------
